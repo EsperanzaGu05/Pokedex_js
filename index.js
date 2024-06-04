@@ -1,7 +1,13 @@
-const url = 'https://pokeapi.co/api/v2/pokemon';
-const containerAll = document.getElementById('allPokemons')
+import { Grid } from '@giphy/react-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
 
-fetch(url)
+const gf = new GiphyFetch('DcIvpMjfEtSKsI9nY6doXhJWltBDuFoh')
+const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
+
+// const url = 'https://pokeapi.co/api/v2/pokemon';
+// const containerAll = document.getElementById('allPokemons')
+
+fetch(fetchGifs)
     .then(response => {
         if (!response) {
             throw new Error('Network response was not ok');
@@ -9,17 +15,7 @@ fetch(url)
         return response.json();
     })
     .then(data => {
-        const { results } = data;
-        // let names = []
-        results.forEach(element => {
-            const listNames = document.createElement('li');
-            listNames.textContent = element.name;
-            containerAll.appendChild(listNames);
-            console.log(element.name);
-        })
-
-
-
+        console.log(data);
     })
     .catch(error => {
         console.error('Error:', error);
